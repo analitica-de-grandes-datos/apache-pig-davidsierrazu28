@@ -19,8 +19,8 @@ $ pig -x local -f pregunta.pig
 
         /* >>> Escriba su respuesta a partir de este punto <<< */
 */
-data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray,col5:chararray, col6:int);
-condicion = FILTER data BY ((col5 matches 'blue') OR (col5 matches 'black'));
-respuesta = FOREACH condicion GENERATE col2,col5;
-DUMP respuesta;
-STORE respuesta INTO 'output' USING PigStorage(',');
+data = LOAD './data.csv' using PigStorage(',') AS (id:int,  name:chararray, lastname:chararray,   date:chararray,  color:chararray, other:int);
+data1 = FILTER data BY (color matches 'blue') or (color matches 'black');
+data2 = FOREACH data1 GENERATE name, color;
+
+STORE data2 INTO 'output/' using PigStorage(',');
