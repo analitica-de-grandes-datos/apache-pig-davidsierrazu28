@@ -23,6 +23,7 @@ $ pig -x local -f pregunta.pig
 
 */
 data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray,col5:chararray, col6:int);
-condicion = FILTER data BY (col5 MATCHES 'b.*);
+condicion = FILTER data BY (col5 MATCHES 'b.*');
 respuesta = FOREACH condicion GENERATE col2,col5;
+DUMP respuesta;
 STORE respuesta INTO 'output' USING PigStorage(',');
