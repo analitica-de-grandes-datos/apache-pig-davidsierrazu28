@@ -35,6 +35,6 @@ $ pig -x local -f pregunta.pig
 
 data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray,col5:chararray, col6:int);
 
-columna3 = FOREACH data GENERATE CONCAT(UCFIRST(col3),UPPER(col3),LOWER(col3));
+columna3 = FOREACH data GENERATE UCFIRST(col3),UPPER(col3),LOWER(col3);
 orden_columna3 = order columna3 by $0;
 STORE orden_columna3 INTO 'output' USING PigStorage(',');
