@@ -41,7 +41,7 @@ data = LOAD 'data.csv' USING PigStorage(',') AS (
   driverName:chararray,
   routeId:long,
   routeName:chararray,
-  eventDate:chararray,
+  eventDate:chararray
 );
 
 3_colum = FOREACH data GENERATE driverId, truckId, eventTime;

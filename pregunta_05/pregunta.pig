@@ -12,9 +12,9 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-data = LOAD 'data.tsv' USING PigStorage('\t') AS (col1:chararray, col2:bag{dict:TUPLE(letter:chararray)}, col3:map);
+data = LOAD 'data.tsv' USING PigStorage('\t') AS (col1:chararray, col2:bag{dict:TUPLE(letter:chararray)}, col3:map[]);
 columna2 = FOREACH data GENERATE col2;
-letras = FOREACH columna2 GENERATE FLATTEN letra;
+letras = FOREACH columna2 GENERATE FLATTEN (col2) as letra;
 agrupar = group letras BY letra;
 conteo = FOREACH agrupar GENERATE group,COUNT(letra);
-STORE 'conteo' INTO 'output' USING PigStorage(',');
+STORE conteo INTO 'output' USING PigStorage(',');
