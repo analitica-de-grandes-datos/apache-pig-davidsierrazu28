@@ -17,5 +17,4 @@ columna2 = FOREACH data GENERATE col2;
 letras = FOREACH columna2 GENERATE FLATTEN (col2) as letra;
 agrupar = group letras BY letra;
 conteo = FOREACH agrupar GENERATE group,COUNT(letras);
-DUMP conteo;
 STORE conteo INTO 'output' USING PigStorage(',');

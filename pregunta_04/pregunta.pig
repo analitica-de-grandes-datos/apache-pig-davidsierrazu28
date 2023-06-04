@@ -45,7 +45,6 @@ data = LOAD 'data.csv' USING PigStorage(',') AS (
 );
 
 limite_10 = LIMIT data 10;
-3_colum = FOREACH limite_10 GENERATE driverId, truckId, eventTime;
-orden = ORDER 3_colum BY driverId, truckId, eventTime;
-DUMP orden;
+colum_3 = FOREACH limite_10 GENERATE driverId, truckId, eventTime;
+orden = ORDER colum_3 BY driverId, truckId, eventTime;
 STORE orden INTO 'output' USING PigStorage(',');
