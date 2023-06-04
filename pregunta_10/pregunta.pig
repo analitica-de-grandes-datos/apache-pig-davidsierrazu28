@@ -22,6 +22,6 @@ $ pig -x local -f pregunta.pig
 */
 data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray,col5:chararray, col6:int);
 respuesta = FOREACH data GENERATE col3, SIZE(col3) as tamano;
-respuesta_ordenada = order respuesta by col3, tamano desc;
+respuesta_ordenada = order respuesta by tamano desc, col3;
 respuesta_5 = limit respuesta_ordenada 5;
 STORE respuesta_5 INTO 'output' USING PigStorage(',');
