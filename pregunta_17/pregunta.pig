@@ -22,5 +22,7 @@ $ pig -x local -f pregunta.pig
 data = LOAD './data.csv' using PigStorage(',') AS (id:int,  name:chararray, lastname:chararray,   date:chararray,  color:chararray, other:int);
 data1 = FILTER data BY (color matches 'blue') or (color matches 'black');
 data2 = FOREACH data1 GENERATE name, color;
-STORE data2 INTO 'output' using PigStorage(',');
+DUMP data2;
+
+STORE data2 INTO 'output/' using PigStorage(',');
 

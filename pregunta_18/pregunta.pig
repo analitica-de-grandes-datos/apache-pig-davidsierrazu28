@@ -21,6 +21,8 @@ $ pig -x local -f pregunta.pig
         /* >>> Escriba su respuesta a partir de este punto <<< */
 */
 data = LOAD './data.csv' using PigStorage(',') AS (num:int, name:chararray, LASTNAME:chararray, time:chararray, color:chararray, otre:int);
-columnas = FOREACH data GENERATE name, color;
-respuesta = FILTER columnas BY NOT (color  MATCHES '.*b.*');
-STORE respuesta INTO 'output/' ;
+data1 = FOREACH data GENERATE name, color;
+data2 = FILTER data1 BY NOT (color  MATCHES '.*b.*');
+DUMP data2;
+
+STORE data2 INTO 'output/' using PigStorage(',');
