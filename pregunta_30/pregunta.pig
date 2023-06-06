@@ -34,3 +34,17 @@ $ pig -x local -f pregunta.pig
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray,col5:chararray, col6:int);
+data1 = FOREACH data GENERATE col3,  ToString(ToDate(col3,'yyyy-MM-dd',
+    'America/Bogota'),'dd'), ToString(ToDate(col3,'yyyy-MM-dd',
+    'America/Bogota'),'d'), ToString(ToDate(col3,'yyyy-MM-dd',
+    'America/Bogota'),'EEEE');
+data2 = FOREACH data1 GENERATE $0, REPLACE($3,'Monday','lunes'), $1, $2;
+data3 = FOREACH data2 GENERATE $0, REPLACE($1,'Tuesday','martes'), $2, $3;
+data4 = FOREACH data3 GENERATE $0, REPLACE($1,'Wednesday','miercoles'), $2, $3;
+data5 = FOREACH data4 GENERATE $0, REPLACE($1,'Thursday','jueves'), $2, $3;
+data6 = FOREACH data5 GENERATE $0, REPLACE($1,'Friday','viernes'), $2, $3;
+data7 = FOREACH data6 GENERATE $0, REPLACE($1,'Saturday','sabado'), $2, $3;
+data8 = FOREACH data7 GENERATE $0, REPLACE($1,'Sunday','domingo'), $2, $3;
+data9 = FOREACH data8  GENERATE $0,$2,$3, SUBSTRING($1, 0, 3),$1;
+STORE data9  INTO 'output' USING PigStorage(',');

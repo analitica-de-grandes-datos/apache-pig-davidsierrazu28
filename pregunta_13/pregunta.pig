@@ -21,10 +21,8 @@ $ pig -x local -f pregunta.pig
 
         /* >>> Escriba su respuesta a partir de este punto <<< */
 */
-data = LOAD './data.csv' using PigStorage(',') AS (num:int, name:chararray, LASTNAME:chararray, time:chararray, color:chararray, otre:int);
-data1 = FOREACH data GENERATE color;
-data2 = FILTER data1 BY ($0 matches '.*b.*');
-DUMP data2;
 
-STORE data2 INTO 'output/' ;
-
+data = LOAD 'data.csv' USING PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray,col5:chararray, col6:int);
+condicion = FILTER data BY (col5 MATCHES 'b.*');
+respuesta = FOREACH condicion GENERATE col5;
+STORE respuesta INTO 'output' USING PigStorage(',');
