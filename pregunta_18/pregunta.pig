@@ -20,8 +20,7 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-data = LOAD 'data.csv' using PigStorage(',')
-     AS (col1:int, col2:chararray, col3:chararray, col4:chararray, col5:chararray, col6:int);
+data = LOAD 'data.csv' using PigStorage(',') AS (col1:int, col2:chararray, col3:chararray, col4:chararray, col5:chararray, col6:int);
 data1 = FOREACH data GENERATE col2, col5;
-data2 = FILTER data1 BY NOT (col5  MATCHES '.*b.*');
-STORE data2 INTO 'output' using PigStorage(',');
+respuesta = FILTER data1 BY NOT (col5  MATCHES '.*b.*');
+STORE respuesta INTO 'output' using PigStorage(',');
